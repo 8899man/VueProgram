@@ -104,7 +104,7 @@ export default {
       console.log(this.$route.query.id)
       let sendDate = {
         id: this.$route.query.id,
-        key: '9e17f73c4feb9b5164307361a3c09b8d'
+        key: '' // 自己弄一个聚合数据的key
       }
       getallMenu('//localhost:8090/cook/queryid', sendDate).then((res) => {
         this.storeAllDate = res.data.result.data[0]
