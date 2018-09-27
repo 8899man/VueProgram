@@ -32,10 +32,13 @@
       .foodName{
         left: 1.6rem;
         top: 0.22rem;
+        overflow: hidden;
       }
       .foodProfid{
         left: 1.6rem;
-        top: 0.49rem;
+        top: .5rem;
+        height: 0.41rem;
+        overflow: hidden;
         .foodNameAfter{
           display: -webkit-box;
           -webkit-box-orient: vertical;
@@ -46,6 +49,8 @@
       .foodBurden{
         left: 1.6rem;
         top: 1rem;
+        height: 0.41rem;
+        overflow: hidden;
         .foodNameAfter{
           display: -webkit-box;
           -webkit-box-orient: vertical;
@@ -61,13 +66,15 @@
   color: #fff;
   text-align: justify;
   width: 2rem;
+  height: 0.41rem;
+  overflow: hidden;
 }
 </style>
 <template>
   <div class="mainBox">
     <div class="TitleBox">
       <el-input v-model="searchName" class="searchBox" placeholder="红烧肉"></el-input>
-      <el-carousel height="150px" class="TitleLun">
+      <el-carousel height="150px" class="TitleLun" style="z-index: 22">
         <el-carousel-item v-for="item in storeMenu" :key="item.id">
           <img :src="item.albums[0]">
         </el-carousel-item>
@@ -124,7 +131,9 @@ export default {
       this.hotFood = getHotDate.data.result.data
     },
     changeToDetail(id) {
-      this.$router.push({path: '/goodsDetail', query: {id: id}})
+      /*this.$router.push({path: '/goodsDetail', query: {id: id}})*/
+      this.$router.push({path: '/goodsDetail'})
+      this.$store.state.goodId = id
     }
   }
 }

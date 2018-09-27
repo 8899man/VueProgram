@@ -55,15 +55,6 @@
       font-weight: bold;
       letter-spacing: 2px;
     }
-    .EachStep{
-      margin: 0.1rem 0rem;
-      .StepExplan{
-        font-size: 18px;
-        text-align: center;
-        color: #e9545e;
-        margin-bottom: 0.1rem;
-      }
-    }
   }
 </style>
 <template>
@@ -79,15 +70,17 @@
     </div>
     <div class="MakeFodProcess">
       <span>图片介绍</span>
-      <div class="EachStep" v-for="item in makeStep">
+      <!--<div class="EachStep" v-for="item in makeStep">
         <div class="StepExplan">{{item.step}}</div>
         <img :src="item.img" alt="">
-      </div>
+      </div>-->
+      <detail :storeDate="makeStep" v-on:sendDateToFa="getDateFCchid"></detail>
     </div>
   </div>
 </template>
 <script>
 import { getallMenu } from '../http/http'
+import detail from '../repeat/detail'
 export default {
   data () {
     return {
@@ -101,10 +94,10 @@ export default {
   },
   methods: {
     getDetail () {
-      console.log(this.$route.query.id)
+      /*console.log(this.$route.query.id)// 这里是获取通过 页面跳转传递的值*/
       let sendDate = {
-        id: this.$route.query.id,
-        key: '' // 自己弄一个聚合数据的key
+        id: this.$store.state.goodId,
+        key: '9e17f73c4feb9b5164307361a3c09b8d' // 自己弄一个聚合数据的key
       }
       getallMenu('//localhost:8090/cook/queryid', sendDate).then((res) => {
         this.storeAllDate = res.data.result.data[0]
@@ -116,7 +109,14 @@ export default {
     turnBackBefore () {
       // 返回到主页面
       this.$router.push({path: '/'})
+    },
+    getDateFCchid (data) {
+      console.log('触发父类中的方法，并接收到传过来的数据')
+      console.log(data)
     }
+  },
+  components : {
+    detail
   }
 }
 </script>
