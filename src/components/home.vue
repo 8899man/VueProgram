@@ -6,74 +6,24 @@
   .searchBox{
     width: 2.7rem;
     display: block;
-    margin: 0 auto;
+    margin-left: 0.15rem;
   }
   .TitleLun{
     margin-top: 0.1rem;
     overflow: hidden;
   }
 }
-  .HotMenu{
-    height: 6rem;
-    .EachHotFood{
-      height: 1.6rem;
-      position: relative;
-      background: #ccc;
-      margin-bottom: 0.1rem;
-      .foodImg{
-        width: 1.25rem;
-        height: 1.25rem;
-        position: absolute;
-        left: 0.15rem;
-        top: 50%;
-        margin-top: -0.62rem;
-        border-radius: 8px;
-      }
-      .foodName{
-        left: 1.6rem;
-        top: 0.22rem;
-        overflow: hidden;
-      }
-      .foodProfid{
-        left: 1.6rem;
-        top: .5rem;
-        height: 0.41rem;
-        overflow: hidden;
-        .foodNameAfter{
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
-        }
-      }
-      .foodBurden{
-        left: 1.6rem;
-        top: 1rem;
-        height: 0.41rem;
-        overflow: hidden;
-        .foodNameAfter{
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
-        }
-      }
-    }
+  .searchFood{
+    position: absolute;
+    right: 0.06rem;
+    top: 0.1rem;
   }
-.foodNameComeon{
-  font-size: 0.16rem;
-  position: absolute;
-  color: #fff;
-  text-align: justify;
-  width: 2rem;
-  height: 0.41rem;
-  overflow: hidden;
-}
 </style>
 <template>
   <div class="mainBox">
     <div class="TitleBox">
       <el-input v-model="searchName" class="searchBox" placeholder="红烧肉"></el-input>
+      <el-button type="success" class="searchFood" @click="searchFood" round>搜索</el-button>
       <el-carousel height="150px" class="TitleLun" style="z-index: 22">
         <el-carousel-item v-for="item in storeMenu" :key="item.id">
           <img :src="item.albums[0]">
@@ -81,23 +31,13 @@
       </el-carousel>
     </div>
     <div class="HotMenu">
-      <div class="EachHotFood" v-for="item in hotFood" :key="item.id"  @click="changeToDetail(item.id)">
-        <img class="foodImg" :src="item.albums[0]" alt="">
-        <div class="foodName foodNameComeon">
-          <span class="foodNameAfter">菜名:{{item.title}}</span>
-        </div>
-        <div class="foodProfid foodNameComeon">
-          <span class="foodNameAfter">介绍:{{item.imtro}}</span>
-        </div>
-        <div class="foodBurden foodNameComeon">
-          <span class="foodNameAfter">材料:{{item.burden}}</span>
-        </div>
-      </div>
+      <showFood :sendFood="hotFood"></showFood>
     </div>
   </div>
 </template>
 <script>
 import * as getMoreDate from '../http/http'
+import showFood from '../repeat/showFood'
 export default {
   data () {
     return {
@@ -130,11 +70,13 @@ export default {
       console.log(getHotDate.data.result.data)
       this.hotFood = getHotDate.data.result.data
     },
-    changeToDetail(id) {
-      /*this.$router.push({path: '/goodsDetail', query: {id: id}})*/
-      this.$router.push({path: '/goodsDetail'})
-      this.$store.state.goodId = id
+    searchFood () {
+      this.$router.push({path: '/Search'})
+      this.$store.state.searchName = this.searchName // 将所搜的食物名称 赋值 给全局变量 searchName
     }
+  },
+  components: {
+    showFood
   }
 }
 </script>

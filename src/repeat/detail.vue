@@ -47,7 +47,7 @@
         console.log(this.storeDate)
         this.newStore = this.storeDate
         /**
-         * 子类通过
+         * this.$emit('传给父类的函数', 参数)
          */
         this.$emit('sendDateToFa', this.newStore)
       }

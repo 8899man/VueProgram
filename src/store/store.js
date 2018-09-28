@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const truenDate = new Vuex.Store({
   state: {
-    goodId: ''
+    goodId: '',
+    searchName: '' // 搜索食物名称
   }
 })
 /**

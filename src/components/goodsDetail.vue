@@ -112,6 +112,9 @@ export default {
     },
     getDateFCchid (data) {
       console.log('触发父类中的方法，并接收到传过来的数据')
+      /**
+       *   getDateFCchid 为父级接收子类函数传过来接收数据的函数  参数为传过来的数据
+       * */
       console.log(data)
     }
   },
